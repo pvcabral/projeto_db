@@ -127,6 +127,9 @@ class DataExtractorForMachineLearning(DataExtractor):
                 mean_time_spent,std_time,percentual_hit_question,sum_char_by_list,mean_char_by_list,std_char_by_list,
                 len_answer,submitted]
     
+    def _get_(self):
+        pass
     
+
         
 
