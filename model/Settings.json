@@ -1,0 +1,3 @@
+{
+    "DB_CONNECTOR": "mysql+pymysql://root:admin@localhost:3306/lop2teste"
+}
