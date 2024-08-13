@@ -13,13 +13,13 @@ class questions(DataExtractor):
         return f'{self._get_question_name(self.id)}'
     
     def submission_by_class(self,class_id):
-        return (self._get_submissions_by_questions_by_class(self.id,class_id))
+        return (self._get_submissions_by_questions_by_class(self.id,class_id).id.nunique())
 
     def hits_question(self,class_id):
-        return (self.submission_by_class(self.id,class_id)).query('hitPercentage == 100').nunique()
+        return (self._get_submissions_by_questions_by_class(self.id,class_id)).query('hitPercentage == 100').id.nunique()
 
     def difficulty_by_class(self,class_id):
-        submissions = self._get_submissions_by_questions_by_class(self.id,class_id)
+        submissions = self.submission_by_class(class_id)
         submissions_corrects = self.hits_question(class_id)
         percentage = round((abs(submissions_corrects - submissions)/submissions)*100,2)
         return percentage
@@ -32,5 +32,5 @@ class lists:
 class subjects:
     pass
 
-teste = questions('25b5c6b3-128c-430e-97d1-55ceb7168d56','mysql+pymysql://root:admin@localhost:3306/lop2teste')
+
 

@@ -59,9 +59,9 @@ class DataExtractor:
         return submissions
     
     def _get_submissions_by_questions_by_class(self,question_id,class_id):
-        query = text("SELECT id FROM submission where question_id = :question_id and class_id = :class_id").bindparams(question_id = question_id,class_id = class_id)
+        query = text("SELECT * FROM submission where question_id = :question_id and class_id = :class_id").bindparams(question_id = question_id,class_id = class_id)
         submissions = pd.read_sql(query,self.con)
-        return submissions.id.nunique()
+        return submissions
     
     def _get_questions_for_list(self,list_id):
         query = text("SELECT id FROM listhasquestion where list_id = :list_id").bindparams(list_id = list_id)
@@ -74,9 +74,9 @@ class DataExtractor:
         return title.title.unique()[0]
     
     def _get_question_name(self,question_id):
-        query = text("SELECT title FROM questions where id = :question_id").bindparams(question_id = question_id)
+        query = text("SELECT title FROM question where id = :question_id").bindparams(question_id = question_id)
         title = pd.read_sql(query,self.con)
-        return title
+        return title.loc[0].title
     
     def _get_hits_student(self,id_student):
         id_student = id_student.query('hitPercentage == 100')
